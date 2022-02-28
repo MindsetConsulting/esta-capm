@@ -31,17 +31,34 @@ annotate service.Employees with @(
 			}
 		},
     UI.Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: 'Main', Target: '@UI.FieldGroup#Main'},
+			{$Type: 'UI.ReferenceFacet', Label: 'General Information', Target: '@UI.FieldGroup#Main'},
             {$Type: 'UI.ReferenceFacet', Label: 'Skills', Target: 'skills/@UI.LineItem'}
 		],
     UI.FieldGroup#Main: {
         Data: [
-            {Value: ID},
             {
-                Value: title
+                Value: department, 
+                Label: 'Department'
             },
             {
-                Value: email
+                Value: title,
+                Label: 'Title'
+            },
+            {
+                Value: role,
+                Label: 'Role'
+            },
+            {
+                Value: directReport,
+                Label: 'Direct Report'
+            },
+            {
+                Value: startDate,
+                Label: 'Start Date'
+            },
+            {
+                Value: email,
+                Label: 'Email'
             }
         ]
     }
@@ -52,22 +69,73 @@ annotate service.Employee2Skill with @(
         {
             $Type : 'UI.DataField',
             Value : skill.skillTitle,
+            Label : 'Skill',
             ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : skill.institution,
+            Label : 'Institution',
             ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : skill.skillType,
+            Label : 'Type of Skill',
+            ![@UI.Importance] : #High,
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : dateAcquired,
+            Label : 'Date Acquired',
             ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : comfortLevel,
+            Label : 'Comfort Level',
             ![@UI.Importance] : #High,
         },
-    ]
+        {
+            $Type : 'UI.DataField',
+            Value : renewal,
+            Label : 'Renewal Status',
+            ![@UI.Importance] : #High,
+        },
+    ],
+    UI.HeaderInfo: {
+			TypeName: 'Skill',
+			TypeNamePlural: 'Skill',
+			Title          : {
+                $Type : 'UI.DataField',
+                Value : skill.skillTitle
+            },
+			Description : {
+				$Type: 'UI.DataField',
+				Value: dateAcquired
+			}
+		},
+    UI.Facets: [
+			{$Type: 'UI.ReferenceFacet', Label: 'General Information', Target: '@UI.FieldGroup#Detail'},
+		],
+    UI.FieldGroup#Detail: {
+        Data: [
+            {
+                Value: skill.institution, 
+                Label: 'Institution'
+            },
+            {
+                Value: skill.skillType,
+                Label: 'Type of Skill'
+            },
+            {
+                Value: comfortLevel,
+                Label: 'Comfort Level'
+            },
+            {
+                Value: renewal,
+                Label: 'Renewal Status'
+            }
+        ]
+    }
 );

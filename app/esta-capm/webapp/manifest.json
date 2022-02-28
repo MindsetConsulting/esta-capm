@@ -98,6 +98,7 @@
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
+                            "editableHeaderContent": true,
                             "entitySet": "Employees",
                             "variantManagement": "Page",
                             "navigation": {
@@ -116,7 +117,7 @@
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings": {
-                            "editableHeaderContent": false,
+                            "editableHeaderContent": true,
                             "entitySet": "Employees",
                                 "navigation": {
                                     "skills": {
