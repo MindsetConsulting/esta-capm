@@ -27,6 +27,14 @@ using { managed } from '@sap/cds/common';
       skill        : Association to one Skills;
       employee     : Association to one Employees;
       dateAcquired : Date;
-      renewal      : String(100);
-      comfortLevel : String(100);
+      renewal      : Renewal;
+      comfortLevel : ComfortLevel;
   }
+
+  type ComfortLevel : String enum {
+    Beginner; Intermediate; Advanced; Expert
+  }
+
+  type Renewal : String enum {
+    na;Current;Expired
+  } 

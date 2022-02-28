@@ -1,6 +1,6 @@
 skill_id;employee_id;dateAcquired;renewal;comfortLevel
-0;0;2020-01-01;n/a;expert
-1;0;2001-02-02;current;beginner
-2;0;2021-01-02;expired;moderate
-1;1;2001-02-02;current;beginner
-2;1;2021-01-02;expired;moderate
+0;0;2020-01-01;na;Expert
+1;0;2001-02-02;Current;Beginner
+2;0;2021-01-02;Expired;Intermediate
+1;1;2001-02-02;Current;Beginner
+2;1;2021-01-02;Expired;Advanced
