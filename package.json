@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "cds run",
-    "watch-esta-capm": "cds watch --open esta-capm/webapp/index.html#fe-lrop-v4"
+    "watch-esta-capm": "cds watch --open esta-capm/webapp/index.html#fe-lrop-v4",
+    "watch-masterskills": "cds watch --open masterskills/webapp/index.html#fe-lrop-v4"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -43,6 +44,7 @@
     }
   },
   "sapux": [
-    "app/esta-capm"
+    "app/esta-capm",
+    "app/masterskills"
   ]
 }

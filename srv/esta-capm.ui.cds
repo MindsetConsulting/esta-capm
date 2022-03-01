@@ -116,7 +116,7 @@ annotate service.Employee2Skill with @(
 			}
 		},
     UI.Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: 'General Information', Target: '@UI.FieldGroup#Detail'},
+			{$Type: 'UI.ReferenceFacet', Label: 'Skill Information', Target: '@UI.FieldGroup#Detail'},
 		],
     UI.FieldGroup#Detail: {
         Data: [
