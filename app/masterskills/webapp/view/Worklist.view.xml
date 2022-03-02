@@ -40,9 +40,9 @@
                             level="H3"/>
                         <ToolbarSpacer />
                         <Button
-                            type="transparent"
+                            type="Transparent"
                             text="Create"
-                            onPress="onCreateSkill"/>
+                            press="onCreateSkill"/>
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"

@@ -10,12 +10,20 @@
             window['sap-ushell-config'] = {
                 defaultRenderer: 'fiori2',
                 applications: {
-                    'fe-lrop-v4': {
+                    'esta-capm': {
                         title: 'ESTA CAPM',
                         description: 'Employee Skill Tracker App built with CAPM and Fiori Elements.',
                         additionalInformation: 'SAPUI5.Component=estacapm.estacapm',
                         applicationType: 'URL',
-                        url: './',
+                        url: './esta-capm/webapp',
+                        navigationMode: 'embedded'
+                    },
+                    'master-skills': {
+                        title: 'Master Skill List',
+                        description: 'Application for tracking master list of skills',
+                        additionalInformation: 'SAPUI5.Component=masterskills.masterskills',
+                        applicationType: 'URL',
+                        url: './masterskills/webapp',
                         navigationMode: 'embedded'
                     }
                 }

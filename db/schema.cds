@@ -2,7 +2,7 @@ namespace sap.ui.estacapm;
 using { managed } from '@sap/cds/common';
 
   entity Employees : managed {
-    key ID         : Integer;
+    key ID         : UUID @(Core.Computed);
     fullName       : String(100);
     department     : String(100);
     title          : String(100);
@@ -15,7 +15,7 @@ using { managed } from '@sap/cds/common';
   }
 
   entity Skills : managed {
-    key ID       : Integer;
+    key ID       : UUID @(Core.Computed);
     skillTitle   : String(100);
     skillType    : String(100);
     institution  : String(100);
@@ -23,9 +23,9 @@ using { managed } from '@sap/cds/common';
   }
 
   entity Employee2Skill : managed {
-      key ID       : Integer;
-      skill        : Association to one Skills;
-      employee     : Association to one Employees;
+      key ID   : UUID @(Core.Computed);
+      skill    : Association to one Skills;
+      employee : Association to one Employees;
       dateAcquired : Date;
       renewal      : Renewal;
       comfortLevel : ComfortLevel;

@@ -5,16 +5,19 @@ annotate service.Employees with @(
         {
             $Type : 'UI.DataField',
             Value : fullName,
+            Label : 'Name',
             ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : department,
+            Label : 'Department',
             ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Value : title,
+            Label : 'Title',
             ![@UI.Importance] : #High,
         },
     ],
@@ -71,18 +74,21 @@ annotate service.Employee2Skill with @(
             Value : skill.skillTitle,
             Label : 'Skill',
             ![@UI.Importance] : #High,
+            ![@Common.FieldControl] : #ReadOnly
         },
         {
             $Type : 'UI.DataField',
             Value : skill.institution,
             Label : 'Institution',
             ![@UI.Importance] : #High,
+            ![@Common.FieldControl] : #ReadOnly
         },
         {
             $Type : 'UI.DataField',
             Value : skill.skillType,
             Label : 'Type of Skill',
             ![@UI.Importance] : #High,
+            ![@Common.FieldControl] : #ReadOnly
         },
         {
             $Type : 'UI.DataField',
@@ -122,15 +128,21 @@ annotate service.Employee2Skill with @(
         Data: [
             {
                 Value: skill.institution, 
-                Label: 'Institution'
+                Label: 'Institution',
+                ![@Common.FieldControl] : #ReadOnly
             },
             {
                 Value: skill.skillType,
-                Label: 'Type of Skill'
+                Label: 'Type of Skill',
+                ![@Common.FieldControl] : #ReadOnly
+            },
+            {
+                Value: dateAcquired,
+                Label: 'Date Acquired',
             },
             {
                 Value: comfortLevel,
-                Label: 'Comfort Level'
+                Label: 'Comfort Level',
             },
             {
                 Value: renewal,

@@ -1,6 +1,6 @@
-ID;skill_id;employee_id;dateAcquired;renewal;comfortLevel
-0;0;0;2020-01-01;na;Expert
-1;1;0;2001-02-02;Current;Beginner
-2;2;0;2021-01-02;Expired;Intermediate
-3;1;1;2001-02-02;Current;Beginner
-4;2;1;2021-01-02;Expired;Advanced
+skill_id;employee_id;dateAcquired;renewal;comfortLevel
+3b6fbba2-d36d-4e7d-9a8e-425c4b0636d6;88f03a0d-e559-4bf6-89a6-b64fcf25e217;2020-01-01;na;Expert
+c4dad6dc-12a0-4b7f-a10a-ae421cebf584;88f03a0d-e559-4bf6-89a6-b64fcf25e217;2001-02-02;Current;Beginner
+0e700d40-438e-4a8c-94ea-5935a7721f0b;88f03a0d-e559-4bf6-89a6-b64fcf25e217;2021-01-02;Expired;Intermediate
+c4dad6dc-12a0-4b7f-a10a-ae421cebf584;19a2a04c-e41e-4c85-81e4-33ca4a755fb1;2001-02-02;Current;Beginner
+0e700d40-438e-4a8c-94ea-5935a7721f0b;19a2a04c-e41e-4c85-81e4-33ca4a755fb1;2021-01-02;Expired;Advanced
