@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="EstaCapm" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Employees" EntityType="EstaCapm.Employees">
+                    <NavigationPropertyBinding Path="skills" Target="Employee2Skill"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Employees"/>
+                </EntitySet>
+                <EntitySet Name="Skills" EntityType="EstaCapm.Skills">
+                    <NavigationPropertyBinding Path="employees" Target="Employee2Skill"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Skills"/>
+                </EntitySet>
+                <EntitySet Name="Employee2Skill" EntityType="EstaCapm.Employee2Skill">
+                    <NavigationPropertyBinding Path="skill" Target="Skills"/>
+                    <NavigationPropertyBinding Path="employee" Target="Employees"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Employee2Skill"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Employees">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="fullName" Type="Edm.String" MaxLength="100"/>
+                <Property Name="department" Type="Edm.String" MaxLength="100"/>
+                <Property Name="title" Type="Edm.String" MaxLength="100"/>
+                <Property Name="role" Type="Edm.String" MaxLength="100"/>
+                <Property Name="industries" Type="Edm.String" MaxLength="100"/>
+                <Property Name="directReport" Type="Edm.String" MaxLength="100"/>
+                <Property Name="startDate" Type="Edm.Date"/>
+                <Property Name="email" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="skills" Type="Collection(EstaCapm.Employee2Skill)" Partner="employee"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="EstaCapm.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="EstaCapm.Employees"/>
+            </EntityType>
+            <EntityType Name="Skills">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="skillTitle" Type="Edm.String" MaxLength="100"/>
+                <Property Name="skillType" Type="Edm.String" MaxLength="100"/>
+                <Property Name="institution" Type="Edm.String" MaxLength="100"/>
+                <NavigationProperty Name="employees" Type="Collection(EstaCapm.Employee2Skill)" Partner="skill"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="EstaCapm.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="EstaCapm.Skills"/>
+            </EntityType>
+            <EntityType Name="Employee2Skill">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="skill" Type="EstaCapm.Skills" Partner="employees">
+                    <ReferentialConstraint Property="skill_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="skill_ID" Type="Edm.Guid"/>
+                <NavigationProperty Name="employee" Type="EstaCapm.Employees" Partner="skills">
+                    <ReferentialConstraint Property="employee_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="employee_ID" Type="Edm.Guid"/>
+                <Property Name="dateAcquired" Type="Edm.Date"/>
+                <Property Name="renewal" Type="Edm.String"/>
+                <Property Name="comfortLevel" Type="Edm.String"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="EstaCapm.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="EstaCapm.Employee2Skill"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employees"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="EstaCapm.Employees"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Skills"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="EstaCapm.Skills"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employee2Skill"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="EstaCapm.Employee2Skill"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employees"/>
+                <ReturnType Type="EstaCapm.Employees"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Skills"/>
+                <ReturnType Type="EstaCapm.Skills"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employee2Skill"/>
+                <ReturnType Type="EstaCapm.Employee2Skill"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employees"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="EstaCapm.Employees"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Skills"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="EstaCapm.Skills"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="EstaCapm.Employee2Skill"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="EstaCapm.Employee2Skill"/>
+            </Action>
+            <Annotations Target="EstaCapm.Employees">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="fullName"/>
+                            <PropertyValue Property="Label" String="Name"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="department"/>
+                            <PropertyValue Property="Label" String="Department"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="title"/>
+                            <PropertyValue Property="Label" String="Title"/>
+                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Employee"/>
+                        <PropertyValue Property="TypeNamePlural" String="Employees"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="fullName"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="department"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="General Information"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Main"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Skills"/>
+                            <PropertyValue Property="Target" AnnotationPath="skills/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Main">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="department"/>
+                                    <PropertyValue Property="Label" String="Department"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="title"/>
+                                    <PropertyValue Property="Label" String="Title"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="role"/>
+                                    <PropertyValue Property="Label" String="Role"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="directReport"/>
+                                    <PropertyValue Property="Label" String="Direct Report"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="startDate"/>
+                                    <PropertyValue Property="Label" String="Start Date"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="email"/>
+                                    <PropertyValue Property="Label" String="Email"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EstaCapm.EntityContainer/Employees">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="EstaCapm.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="EstaCapm.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="EstaCapm.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="EstaCapm.Employees/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="EstaCapm.Employees/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="EstaCapm.Employees/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="EstaCapm.Employees/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Employees/ID">
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Employees/IsActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Employees/HasActiveEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Employees/HasDraftEntity">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Employees/DraftAdministrativeData">
+                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.EntityContainer/Skills">
+                                        <Annotation Term="Common.DraftRoot">
+                                            <Record Type="Common.DraftRootType">
+                                                <PropertyValue Property="ActivationAction" String="EstaCapm.draftActivate"/>
+                                                <PropertyValue Property="EditAction" String="EstaCapm.draftEdit"/>
+                                                <PropertyValue Property="PreparationAction" String="EstaCapm.draftPrepare"/>
+                                            </Record>
+                                        </Annotation>
+                                    </Annotations>
+                                    <Annotations Target="EstaCapm.Skills/createdAt">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                        </Annotations>
+                                        <Annotations Target="EstaCapm.Skills/createdBy">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                </Annotations>
+                                                <Annotations Target="EstaCapm.Skills/modifiedAt">
+                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="EstaCapm.Skills/modifiedBy">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Skills/ID">
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Skills/IsActiveEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Skills/HasActiveEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Skills/HasDraftEntity">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Skills/DraftAdministrativeData">
+                                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Employee2Skill">
+                                                                <Annotation Term="UI.LineItem">
+                                                                    <Collection>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="skill/skillTitle"/>
+                                                                            <PropertyValue Property="Label" String="Skill"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                            <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="skill/institution"/>
+                                                                            <PropertyValue Property="Label" String="Institution"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                            <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="skill/skillType"/>
+                                                                            <PropertyValue Property="Label" String="Type of Skill"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                            <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="dateAcquired"/>
+                                                                            <PropertyValue Property="Label" String="Date Acquired"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="comfortLevel"/>
+                                                                            <PropertyValue Property="Label" String="Comfort Level"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Value" Path="renewal"/>
+                                                                            <PropertyValue Property="Label" String="Renewal Status"/>
+                                                                            <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High"/>
+                                                                        </Record>
+                                                                    </Collection>
+                                                                </Annotation>
+                                                                <Annotation Term="UI.HeaderInfo">
+                                                                    <Record Type="UI.HeaderInfoType">
+                                                                        <PropertyValue Property="TypeName" String="Skill"/>
+                                                                        <PropertyValue Property="TypeNamePlural" String="Skill"/>
+                                                                        <PropertyValue Property="Title">
+                                                                            <Record Type="UI.DataField">
+                                                                                <PropertyValue Property="Value" Path="skill/skillTitle"/>
+                                                                            </Record>
+                                                                        </PropertyValue>
+                                                                        <PropertyValue Property="Description">
+                                                                            <Record Type="UI.DataField">
+                                                                                <PropertyValue Property="Value" Path="dateAcquired"/>
+                                                                            </Record>
+                                                                        </PropertyValue>
+                                                                    </Record>
+                                                                </Annotation>
+                                                                <Annotation Term="UI.Facets">
+                                                                    <Collection>
+                                                                        <Record Type="UI.ReferenceFacet">
+                                                                            <PropertyValue Property="Label" String="Skill Information"/>
+                                                                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Detail"/>
+                                                                        </Record>
+                                                                    </Collection>
+                                                                </Annotation>
+                                                                <Annotation Term="UI.FieldGroup" Qualifier="Detail">
+                                                                    <Record Type="UI.FieldGroupType">
+                                                                        <PropertyValue Property="Data">
+                                                                            <Collection>
+                                                                                <Record Type="UI.DataField">
+                                                                                    <PropertyValue Property="Value" Path="skill/institution"/>
+                                                                                    <PropertyValue Property="Label" String="Institution"/>
+                                                                                    <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+                                                                                </Record>
+                                                                                <Record Type="UI.DataField">
+                                                                                    <PropertyValue Property="Value" Path="skill/skillType"/>
+                                                                                    <PropertyValue Property="Label" String="Type of Skill"/>
+                                                                                    <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/ReadOnly"/>
+                                                                                </Record>
+                                                                                <Record Type="UI.DataField">
+                                                                                    <PropertyValue Property="Value" Path="dateAcquired"/>
+                                                                                    <PropertyValue Property="Label" String="Date Acquired"/>
+                                                                                </Record>
+                                                                                <Record Type="UI.DataField">
+                                                                                    <PropertyValue Property="Value" Path="comfortLevel"/>
+                                                                                    <PropertyValue Property="Label" String="Comfort Level"/>
+                                                                                </Record>
+                                                                                <Record Type="UI.DataField">
+                                                                                    <PropertyValue Property="Value" Path="renewal"/>
+                                                                                    <PropertyValue Property="Label" String="Renewal Status"/>
+                                                                                </Record>
+                                                                            </Collection>
+                                                                        </PropertyValue>
+                                                                    </Record>
+                                                                </Annotation>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.EntityContainer/Employee2Skill">
+                                                                <Annotation Term="Common.DraftRoot">
+                                                                    <Record Type="Common.DraftRootType">
+                                                                        <PropertyValue Property="ActivationAction" String="EstaCapm.draftActivate"/>
+                                                                        <PropertyValue Property="EditAction" String="EstaCapm.draftEdit"/>
+                                                                        <PropertyValue Property="PreparationAction" String="EstaCapm.draftPrepare"/>
+                                                                    </Record>
+                                                                </Annotation>
+                                                            </Annotations>
+                                                            <Annotations Target="EstaCapm.Employee2Skill/createdAt">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="EstaCapm.Employee2Skill/createdBy">
+                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="EstaCapm.Employee2Skill/modifiedAt">
+                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                            </Annotations>
+                                                                            <Annotations Target="EstaCapm.Employee2Skill/modifiedBy">
+                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.Employee2Skill/ID">
+                                                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.Employee2Skill/IsActiveEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.Employee2Skill/HasActiveEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.Employee2Skill/HasDraftEntity">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.Employee2Skill/DraftAdministrativeData">
+                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="EstaCapm.DraftAdministrativeData">
+                                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                                                                                        </Annotations>
+                                                                                        <Annotations Target="EstaCapm.DraftAdministrativeData/DraftUUID">
+                                                                                            <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                            <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                                                                                            </Annotations>
+                                                                                            <Annotations Target="EstaCapm.DraftAdministrativeData/CreationDateTime">
+                                                                                                <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                                                                                                </Annotations>
+                                                                                                <Annotations Target="EstaCapm.DraftAdministrativeData/CreatedByUser">
+                                                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                                                                                                    </Annotations>
+                                                                                                    <Annotations Target="EstaCapm.DraftAdministrativeData/DraftIsCreatedByMe">
+                                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                                                                                        </Annotations>
+                                                                                                        <Annotations Target="EstaCapm.DraftAdministrativeData/LastChangeDateTime">
+                                                                                                            <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                                                                                            </Annotations>
+                                                                                                            <Annotations Target="EstaCapm.DraftAdministrativeData/LastChangedByUser">
+                                                                                                                <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                                                                                                </Annotations>
+                                                                                                                <Annotations Target="EstaCapm.DraftAdministrativeData/InProcessByUser">
+                                                                                                                    <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                                                                                                    </Annotations>
+                                                                                                                    <Annotations Target="EstaCapm.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                                                                                        <Annotation Term="UI.Hidden" Bool="true"/>
+                                                                                                                        <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                                                                                        </Annotations>
+                                                                                                                    </Schema>
+                                                                                                                </edmx:DataServices>
+                                                                                                            </edmx:Edmx>

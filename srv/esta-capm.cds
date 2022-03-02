@@ -6,5 +6,5 @@ service EstaCapm {
   entity Skills as projection on my.Skills;
     annotate Skills with @odata.draft.enabled;
   entity Employee2Skill as projection on my.Employee2Skill;
-    annotate Employee2Skills with @odata.draft.enabled;
+    annotate Employee2Skill with @odata.draft.enabled;
 }

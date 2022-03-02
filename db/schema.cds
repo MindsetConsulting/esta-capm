@@ -37,4 +37,4 @@ using { managed } from '@sap/cds/common';
 
   type Renewal : String enum {
     na;Current;Expired
-  } 
+  }
