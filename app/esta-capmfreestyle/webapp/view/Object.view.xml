@@ -2,6 +2,7 @@
     controllerName="freestylecapm.estacapmfreestyle.controller.Object"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout"
     xmlns:semantic="sap.f.semantic">
 
     <semantic:SemanticPage
@@ -18,8 +19,115 @@
         </semantic:titleHeading>
 
         <semantic:headerContent>
-            <ObjectNumber />
+            <layout:HorizontalLayout>
+                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                    <ObjectIdentifier
+                        title="Department"
+                        text="{department}"/>
+                    <ObjectIdentifier
+                        title="Title"
+                        text="{title}"/>
+                    <ObjectIdentifier
+                        title="Role"
+                        text="{role}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                    <ObjectIdentifier
+                        title="Direct Report"
+                        text="{directReport}"/>
+                    <ObjectIdentifier
+                        title="Start Date"
+                        text="{startDate}"/>
+                    <ObjectIdentifier
+                        title="Email"
+                        text="{email}"/>
+                </layout:VerticalLayout>
+            </layout:HorizontalLayout>
         </semantic:headerContent>
+
+        <semantic:content>
+            <Table
+                id="skillTable"
+                width="auto"
+                items="{
+                    path: 'skills',
+                    sorter: {
+                        path: 'ID',
+                        descending: false
+                    }
+                }"
+                growing="true"
+                growingScrollToLoad="true">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            id="tableHeader"
+                            text="{worklistView>/worklistTableTitle}"
+                            level="H3"/>
+                        <ToolbarSpacer />
+                        <SearchField
+                            id="searchField"
+                            tooltip="{i18n>worklistSearchTooltip}"
+                            search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData
+                                    maxWidth="200px"
+                                    priority="NeverOverflow"/>
+                            </layoutData>
+                        </SearchField>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column id="skillColumn">
+                        <Text text="{i18n>skillColumnTitle}" id="skillColumnTitle"/>
+                    </Column>
+                    <Column id="institutionColumn">
+                        <Text text="{i18n>skillInstitutionTitle}" id="skillInstitutionTitle"/>
+                    </Column>
+                    <Column id="skillTypeColumn">
+                        <Text text="{i18n>skillTypeTitle}" id="skillTypeTitle"/>
+                    </Column>
+                    <Column id="skillDateColumn">
+                        <Text text="{i18n>skillDateTitle}" id="skillDateTitle"/>
+                    </Column>
+                    <Column id="skillRenewalColumn">
+                        <Text text="{i18n>skillRenewalTitle}" id="skillRenewalTitle"/>
+                    </Column>
+                    <Column id="skillComfortColumn">
+                        <Text text="{i18n>skillComfortTitle}" id="skillComfortTitle"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier
+                                title="{skill/skillTitle}"/>
+                            <ObjectIdentifier
+                                text="{skill/institution}"/>
+                            <ObjectIdentifier
+                                text="{skill/skillType}"/>
+                            <ObjectIdentifier
+                                text="{dateAcquired}"/>
+                            <ObjectIdentifier
+                                text="{renewal}"/>
+                            <ObjectIdentifier
+                                text="{comfortLevel}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+
+        <semantic:titleMainAction>
+			<semantic:TitleMainAction text="Edit"/>
+		</semantic:titleMainAction>
+
+		<semantic:deleteAction>
+			<semantic:DeleteAction />
+		</semantic:deleteAction>
 
         <semantic:sendEmailAction>
             <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>

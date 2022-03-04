@@ -54,10 +54,13 @@
 
                 <columns>
                     <Column id="nameColumn">
-                        <Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+                        <Text text="{i18n>nameColumnTitle}" id="nameColumnTitle"/>
                     </Column>
-                    <Column id="unitNumberColumn" hAlign="End">
-                        <Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
+                    <Column id="departmentColumn">
+                        <Text text="{i18n>departmentColumnTitle}" id="departmentColumnTitle"/>
+                    </Column>
+                    <Column id="titleColumn">
+                        <Text text="{i18n>titleColumnTitle}" id="titleColumnTitle"/>
                     </Column>
                 </columns>
 
@@ -68,7 +71,10 @@
                         <cells>
                             <ObjectIdentifier
                                 title="{fullName}"/>
-                            <ObjectNumber />
+                            <ObjectIdentifier
+                                text="{department}"/>
+                            <ObjectIdentifier
+                                text="{title}"/>
                         </cells>
                     </ColumnListItem>
                 </items>
