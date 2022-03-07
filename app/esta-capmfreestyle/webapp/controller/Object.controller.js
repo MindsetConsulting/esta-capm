@@ -109,7 +109,30 @@ sap.ui.define([
                     oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
                 oViewModel.setProperty("/shareSendEmailMessage",
                     oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
-        }
+        },
+
+        handleEditPress : function() {
+            console.log("edit button pressed!");
+        },
+
+        onInputChange : function (oEvt) {
+			if (oEvt.getParameter("escPressed")) {
+				this._setUIChanges();
+			} else {
+				this._setUIChanges(true);
+			}
+		},
+
+        _setUIChanges : function (bHasUIChanges) {
+			if (this._bTechnicalErrors) {
+				// If there is currently a technical error, then force 'true'.
+				bHasUIChanges = true;
+			} else if (bHasUIChanges === undefined) {
+				bHasUIChanges = this.getView().getModel().hasPendingChanges();
+			}
+			var oModel = this.getView().getModel();
+			oModel.setProperty("/hasUIChanges", bHasUIChanges);
+		}
     });
 
 });

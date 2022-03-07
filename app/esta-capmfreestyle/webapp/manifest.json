@@ -16,7 +16,8 @@
         "settings": {
           "annotations": [],
           "localUri": "localService/metadata.xml",
-          "odataVersion": "4.0"
+          "odataVersion": "4.0",
+          "GroupId": "$auto"
         }
       }
     }

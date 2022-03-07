@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:layout="sap.ui.layout"
+   xmlns:form="sap.ui.layout.form"
+   xmlns:core="sap.ui.core" >
+   <Dialog
+      id="addEmployeeDialog"
+      title="Add New Employee">
+      <layout:HorizontalLayout>
+        <layout:VerticalLayout>
+            <form:SimpleForm
+                maxContainerCols="2"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanL="12"
+                labelSpanM="12"
+                emptySpanL="0"
+                emptySpanM="0"
+                columnsL="1"
+                columnsM="1">
+                <form:content>
+                    <Label text="Name"/>
+                    <Input id="FullName"/>
+                    <Label text="Department"/>
+                    <Input id="Department" />
+                    <Label text="Title"/>
+                    <Input id="Title"/>
+                    <Label text="Role"/>
+                    <Input id="Role"/>
+                    <Label text="Industries"/>
+                    <Input id="Industries"/>
+                    <Label text="Direct Report"/>
+                    <Input id="DirectReport"/>
+                    <Label text="Start Date"/>
+                    <DatePicker
+                      id="StartDate"
+                      change="handleDateChange"
+                      class="sapUiSmallMarginBottom"/>
+                    <Label text="Email"/>
+                    <Input id="Email" type="Email"/>
+                </form:content>
+            </form:SimpleForm>
+        </layout:VerticalLayout>
+      </layout:HorizontalLayout>
+      <beginButton>
+        <Button
+            text="Add Employee"
+            type="Emphasized"
+            press="onAddNewEmployee"/>
+      </beginButton>
+      <endButton>
+        <Button 
+            text="Cancel"
+            press="onCancelAddEmployeeDialog"/>
+      </endButton>
+   </Dialog>
+</core:FragmentDefinition>

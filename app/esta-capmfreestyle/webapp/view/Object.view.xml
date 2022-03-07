@@ -21,26 +21,38 @@
         <semantic:headerContent>
             <layout:HorizontalLayout>
                 <layout:VerticalLayout class="sapUiMediumMarginEnd">
-                    <ObjectIdentifier
-                        title="Department"
-                        text="{department}"/>
-                    <ObjectIdentifier
-                        title="Title"
-                        text="{title}"/>
-                    <ObjectIdentifier
-                        title="Role"
-                        text="{role}"/>
+                    <Label text="Department" design="Bold"/>
+                    <Input
+                        value="{department}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
+                    <Label text="Title" design="Bold"/>
+                    <Input
+                        value="{title}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
+                    <Label text="Role" design="Bold"/>
+                    <Input
+                        value="{role}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
                 </layout:VerticalLayout>
                 <layout:VerticalLayout class="sapUiMediumMarginEnd">
-                    <ObjectIdentifier
-                        title="Direct Report"
-                        text="{directReport}"/>
-                    <ObjectIdentifier
-                        title="Start Date"
-                        text="{startDate}"/>
-                    <ObjectIdentifier
-                        title="Email"
-                        text="{email}"/>
+                    <Label text="Direct Report" design="Bold"/>
+                    <Input
+                        value="{directReport}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
+                    <Label text="Start Date" design="Bold"/>
+                    <Input
+                        value="{startDate}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
+                    <Label text="Email" design="Bold"/>
+                    <Input
+                        value="{email}"
+                        valueLiveUpdate="true"
+                        liveChange="onInputChange"/>
                 </layout:VerticalLayout>
             </layout:HorizontalLayout>
         </semantic:headerContent>
@@ -66,6 +78,9 @@
                             text="{worklistView>/worklistTableTitle}"
                             level="H3"/>
                         <ToolbarSpacer />
+                        <Button
+                            text="Add Skill"
+                            type="Emphasized"/>
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"
@@ -122,7 +137,7 @@
         </semantic:content>
 
         <semantic:titleMainAction>
-			<semantic:TitleMainAction text="Edit"/>
+			<semantic:TitleMainAction text="Edit" press="handleEditPress"/>
 		</semantic:titleMainAction>
 
 		<semantic:deleteAction>

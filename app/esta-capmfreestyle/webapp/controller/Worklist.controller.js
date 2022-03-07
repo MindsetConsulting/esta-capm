@@ -74,6 +74,17 @@ sap.ui.define([
             this._showObject(oEvent.getSource());
         },
 
+        onOpenAddEmployeeDialog: function() {
+			if (!this.addEmployeeDialog) {
+				this.addEmployeeDialog = this.getView().byId("addEmployeeDialog");
+			} 
+			this.addEmployeeDialog.open();
+		},
+
+        onCancelAddEmployeeDialog: function () {
+			this.byId("addEmployeeDialog").close();
+		},
+
         /**
          * Event handler for navigating back.
          * Navigate back in the browser history

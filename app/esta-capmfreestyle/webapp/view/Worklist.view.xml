@@ -1,6 +1,7 @@
 <mvc:View
     controllerName="freestylecapm.estacapmfreestyle.controller.Worklist"
     xmlns="sap.m"
+    xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.f.semantic">
 
@@ -39,6 +40,10 @@
                             text="{worklistView>/worklistTableTitle}"
                             level="H3"/>
                         <ToolbarSpacer />
+                        <Button
+                            text="Add Employee"
+                            type="Emphasized"
+                            press="onAddEmployeeDialog"/>
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"
