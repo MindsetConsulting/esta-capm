@@ -1,6 +1,7 @@
 <mvc:View
     controllerName="freestylecapm.estacapmfreestyle.controller.Object"
     xmlns="sap.m"
+    xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:layout="sap.ui.layout"
     xmlns:semantic="sap.f.semantic">
@@ -10,7 +11,8 @@
         headerPinnable="false"
         toggleHeaderOnTitleClick="false"
         busy="{objectView>/busy}"
-        busyIndicatorDelay="{objectView>/delay}">
+        busyIndicatorDelay="{objectView>/delay}"
+        >
 
         <semantic:titleHeading>
             <Title
@@ -23,16 +25,19 @@
                 <layout:VerticalLayout class="sapUiMediumMarginEnd">
                     <Label text="Department" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{department}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
                     <Label text="Title" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{title}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
                     <Label text="Role" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{role}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
@@ -40,16 +45,19 @@
                 <layout:VerticalLayout class="sapUiMediumMarginEnd">
                     <Label text="Direct Report" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{directReport}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
                     <Label text="Start Date" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{startDate}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
                     <Label text="Email" design="Bold"/>
                     <Input
+                        editable="{objectView>/editMode}"
                         value="{email}"
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
@@ -137,17 +145,23 @@
         </semantic:content>
 
         <semantic:titleMainAction>
-			<semantic:TitleMainAction text="Edit" press="handleEditPress"/>
+			<semantic:TitleMainAction id="editAction" text="Edit" press="handleEditPress"/>
 		</semantic:titleMainAction>
 
 		<semantic:deleteAction>
 			<semantic:DeleteAction />
 		</semantic:deleteAction>
 
-        <semantic:sendEmailAction>
-            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
-        </semantic:sendEmailAction>
+        <semantic:footerMainAction>
+			<semantic:FooterMainAction text="Save" press="onSave"/>
+		</semantic:footerMainAction>
+
+		<semantic:footerCustomActions>
+			<Button id="cancelAction" text="Cancel" press="onResetChanges"/>
+		</semantic:footerCustomActions>
 
     </semantic:SemanticPage>
+
+    
 
 </mvc:View>

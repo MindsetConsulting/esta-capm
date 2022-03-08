@@ -1,9 +1,14 @@
 sap.ui.define([
     "./BaseController",
+    "sap/m/MessageToast",
+	"sap/m/MessageBox",
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
     "../model/formatter"
-], function (BaseController, JSONModel, History, formatter) {
+], function (BaseController, MessageToast, MessageBox, Filter, FilterOperator, FilterType, JSONModel, History, formatter) {
     "use strict";
 
     return BaseController.extend("freestylecapm.estacapmfreestyle.controller.Object", {
@@ -19,15 +24,24 @@ sap.ui.define([
          * @public
          */
         onInit : function () {
-            // Model used to manipulate control states. The chosen values make sure,
-            // detail page shows busy indication immediately so there is no break in
-            // between the busy indication for loading the view's meta data
-            var oViewModel = new JSONModel({
-                    busy : true,
-                    delay : 0
-                });
+            var oMessageManager = sap.ui.getCore().getMessageManager(),
+				oMessageModel = oMessageManager.getMessageModel(),
+				oMessageModelBinding = oMessageModel.bindList("/", undefined, [],
+					new Filter("technical", FilterOperator.EQ, true)),
+				oViewModel = new JSONModel({
+					busy : false,
+					hasUIChanges : false,
+					order : 0,
+                    editMode : false
+				});
             this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
             this.setModel(oViewModel, "objectView");
+            this.getView().setModel(oMessageModel, "message");
+            this.oSemanticPage = this.byId("page");
+            this.oEditAction = this.byId("editAction");
+
+			oMessageModelBinding.attachChange(this.onMessageBindingChange, this);
+			this._bTechnicalErrors = false;
         },
         /* =========================================================== */
         /* event handlers                                              */
@@ -84,6 +98,9 @@ sap.ui.define([
                     dataReceived: function () {
                         oViewModel.setProperty("/busy", false);
                     }
+                },
+                parameters: {
+                    "$$updateGroupId" : 'employeeInfo'
                 }
             });
         },
@@ -112,8 +129,45 @@ sap.ui.define([
         },
 
         handleEditPress : function() {
-            console.log("edit button pressed!");
+            var oViewModel = this.getModel("objectView")
+            oViewModel.setProperty("/editMode", true);
+            this.showFooter(true);
         },
+
+        onSave : function() {
+            this.showFooter(false);
+            this.oEditAction.setVisible(true);
+			var fnSuccess = function () {
+				this._setBusy(false);
+				this._setUIChanges(false);
+			}.bind(this);
+
+			var fnError = function (oError) {
+				this._setBusy(false);
+				this._setUIChanges(false);
+			}.bind(this);
+
+			this._setBusy(true); // Lock UI until submitBatch is resolved.
+			this.getView().getModel().submitBatch("employeeInfo").then(fnSuccess, fnError);
+			this._bTechnicalErrors = false;
+
+            var oViewModel = this.getModel("objectView")
+            oViewModel.setProperty("/editMode", false);
+
+            MessageBox.alert("Successfully saved!");
+        },
+
+        onResetChanges : function() {
+            var oViewModel = this.getModel("objectView")
+            oViewModel.setProperty("/editMode", false);
+            this.showFooter(false);
+            this.oEditAction.setVisible(true);
+            this.getView().getModel().resetChanges("employeeInfo");
+        },
+
+        showFooter: function(bShow) {
+			this.oSemanticPage.setShowFooter(bShow);
+		},
 
         onInputChange : function (oEvt) {
 			if (oEvt.getParameter("escPressed")) {
@@ -130,8 +184,13 @@ sap.ui.define([
 			} else if (bHasUIChanges === undefined) {
 				bHasUIChanges = this.getView().getModel().hasPendingChanges();
 			}
-			var oModel = this.getView().getModel();
+			var oModel = this.getView().getModel("appView");
 			oModel.setProperty("/hasUIChanges", bHasUIChanges);
+		},
+
+        _setBusy : function (bIsBusy) {
+			var oModel = this.getView().getModel("appView");
+			oModel.setProperty("/busy", bIsBusy);
 		}
     });
 

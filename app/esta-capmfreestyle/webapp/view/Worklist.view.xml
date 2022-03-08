@@ -41,9 +41,9 @@
                             level="H3"/>
                         <ToolbarSpacer />
                         <Button
-                            text="Add Employee"
-                            type="Emphasized"
-                            press="onAddEmployeeDialog"/>
+                            id="sortUsersButton"
+                            icon="sap-icon://sort"
+                            press="onSort"/>
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"
@@ -86,9 +86,9 @@
             </Table>
         </semantic:content>
 
-        <semantic:sendEmailAction>
-            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
-        </semantic:sendEmailAction>
+        <semantic:titleMainAction>
+			<semantic:TitleMainAction text="Add Employee" press="onAddEmployeeDialog"/>
+		</semantic:titleMainAction>
 
     </semantic:SemanticPage>
 

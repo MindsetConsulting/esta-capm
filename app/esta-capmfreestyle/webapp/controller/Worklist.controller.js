@@ -28,8 +28,6 @@ sap.ui.define([
             // Model used to manipulate control states
             oViewModel = new JSONModel({
                 worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
-                shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
-                shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
                 tableNoDataText : this.getResourceBundle().getText("tableNoDataText")
             });
             this.setModel(oViewModel, "worklistView");
@@ -76,7 +74,7 @@ sap.ui.define([
 
         onOpenAddEmployeeDialog: function() {
 			if (!this.addEmployeeDialog) {
-				this.addEmployeeDialog = this.getView().byId("addEmployeeDialog");
+				this.addEmployeeDialog = this.getView().byId("AddEmployeeDialog");
 			} 
 			this.addEmployeeDialog.open();
 		},
@@ -108,12 +106,29 @@ sap.ui.define([
                 var sQuery = oEvent.getParameter("query");
 
                 if (sQuery && sQuery.length > 0) {
-                    aTableSearchState = [new Filter("ID", FilterOperator.Contains, sQuery)];
+                    aTableSearchState = [new Filter("fullName", FilterOperator.Contains, sQuery)];
                 }
                 this._applySearch(aTableSearchState);
             }
 
         },
+
+        onSort : function () {
+			var oView = this.getView(),
+				aStates = [undefined, "asc", "desc"],
+				aStateTextIds = ["sortNone", "sortAscending", "sortDescending"],
+				sMessage,
+				iOrder = oView.getModel("appView").getProperty("/order");
+
+			iOrder = (iOrder + 1) % aStates.length;
+			var sOrder = aStates[iOrder];
+
+			oView.getModel("appView").setProperty("/order", iOrder);
+			oView.byId("Employees").getBinding("items").sort(sOrder && new Sorter("fullName", sOrder === "desc"));
+
+			sMessage = this._getText("sortMessage", [this._getText(aStateTextIds[iOrder])]);
+			MessageToast.show(sMessage);
+		},
 
         /**
          * Event handler for refresh event. Keeps filter, sort
