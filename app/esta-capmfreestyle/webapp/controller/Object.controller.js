@@ -97,6 +97,10 @@ sap.ui.define([
         handleEditPress : function() {
             var oViewModel = this.getModel("objectView")
             oViewModel.setProperty("/editMode", true);
+            this.byId("bigName").setProperty("visible", false);
+            this.byId("bigNameEdit").setProperty("visible", true);
+            this.byId("information").setProperty("visible", false);
+            this.byId("inputs").setProperty("visible", true);
             this.showFooter(true);
         },
 
@@ -120,12 +124,21 @@ sap.ui.define([
             var oViewModel = this.getModel("objectView")
             oViewModel.setProperty("/editMode", false);
 
+            this.byId("bigName").setProperty("visible", true);
+            this.byId("bigNameEdit").setProperty("visible", false);
+            this.byId("information").setProperty("visible", true);
+            this.byId("inputs").setProperty("visible", false);
+
             MessageBox.alert("Successfully saved!");
         },
 
         onResetChanges : function() {
             var oViewModel = this.getModel("objectView")
             oViewModel.setProperty("/editMode", false);
+            this.byId("bigName").setProperty("visible", true);
+            this.byId("bigNameEdit").setProperty("visible", false);
+            this.byId("information").setProperty("visible", true);
+            this.byId("inputs").setProperty("visible", false);
             this.showFooter(false);
             this.oEditAction.setVisible(true);
             this.getView().getModel().resetChanges("employeeInfo");

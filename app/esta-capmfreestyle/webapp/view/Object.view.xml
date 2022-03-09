@@ -15,15 +15,41 @@
         >
 
         <semantic:titleHeading>
-            <Input
-                editable="{objectView>/editMode}"
-                value="{fullName}"
-                valueLiveUpdate="true"
-                liveChange="onInputChange"/>
+            <layout:VerticalLayout>
+                <Title 
+                    id="bigName"
+                    visible="true"
+                    text="{fullName}"/>
+                <Input
+                    id="bigNameEdit"
+                    visible="false"
+                    editable="{objectView>/editMode}"
+                    value="{fullName}"
+                    valueLiveUpdate="true"
+                    liveChange="onInputChange"/>
+            </layout:VerticalLayout>
         </semantic:titleHeading>
 
         <semantic:headerContent>
-            <layout:HorizontalLayout>
+            <layout:HorizontalLayout id="information" visible="true">
+                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                    <Label text="Department" design="Bold"/>
+                    <Text text="{department}"/>
+                    <Label text="Title" design="Bold"/>
+                    <Text text="{title}"/>
+                    <Label text="Role" design="Bold"/>
+                    <Text text="{role}"/>
+                </layout:VerticalLayout>
+                <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                    <Label text="Direct Report" design="Bold"/>
+                    <Text text="{directReport}"/>
+                    <Label text="Start Date" design="Bold"/>
+                    <Text text="{startDate}"/>
+                    <Label text="Email" design="Bold"/>
+                    <Text text="{email}"/>
+                </layout:VerticalLayout>
+            </layout:HorizontalLayout>
+            <layout:HorizontalLayout id="inputs" visible="false">
                 <layout:VerticalLayout class="sapUiMediumMarginEnd">
                     <Label text="Department" design="Bold"/>
                     <Input
