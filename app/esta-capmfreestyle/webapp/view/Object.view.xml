@@ -15,9 +15,11 @@
         >
 
         <semantic:titleHeading>
-            <Title
-                text="{fullName}"
-                level="H2"/>
+            <Input
+                editable="{objectView>/editMode}"
+                value="{fullName}"
+                valueLiveUpdate="true"
+                liveChange="onInputChange"/>
         </semantic:titleHeading>
 
         <semantic:headerContent>
@@ -161,7 +163,5 @@
 		</semantic:footerCustomActions>
 
     </semantic:SemanticPage>
-
-    
 
 </mvc:View>

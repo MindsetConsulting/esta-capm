@@ -72,15 +72,43 @@ sap.ui.define([
             this._showObject(oEvent.getSource());
         },
 
-        onOpenAddEmployeeDialog: function() {
-			if (!this.addEmployeeDialog) {
-				this.addEmployeeDialog = this.getView().byId("AddEmployeeDialog");
-			} 
-			this.addEmployeeDialog.open();
+        onAddEmployee: function() {
+			console.log('Adding new employee!');
+            var oList = this.byId("table"),
+				oBinding = oList.getBinding("items"),
+				oContext = oBinding.create({
+					"fullName" : "",
+					"department" : "",
+					"title" : "",
+					"role" : "",
+                    "industries" : "",
+                    "directReport" : "",
+                    "startDate" : "1111-11-11",
+                    "email" : "",
+				});
+
+			this._setUIChanges();
+
+			oList.getItems().some(function (oItem) {
+				if (oItem.getBindingContext() === oContext) {
+					oItem.focus();
+					oItem.setSelected(true);
+					return true;
+				}
+			});
+
+            var path = oItem.getBindingContext().getPath();
 		},
 
-        onCancelAddEmployeeDialog: function () {
-			this.byId("addEmployeeDialog").close();
+        _setUIChanges : function (bHasUIChanges) {
+			if (this._bTechnicalErrors) {
+				// If there is currently a technical error, then force 'true'.
+				bHasUIChanges = true;
+			} else if (bHasUIChanges === undefined) {
+				bHasUIChanges = this.getView().getModel().hasPendingChanges();
+			}
+			var oModel = this.getView().getModel("appView");
+			oModel.setProperty("/hasUIChanges", bHasUIChanges);
 		},
 
         /**
