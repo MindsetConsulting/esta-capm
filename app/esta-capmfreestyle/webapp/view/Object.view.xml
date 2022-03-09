@@ -151,7 +151,7 @@
 		</semantic:titleMainAction>
 
 		<semantic:deleteAction>
-			<semantic:DeleteAction />
+			<semantic:DeleteAction press="onDelete"/>
 		</semantic:deleteAction>
 
         <semantic:footerMainAction>
