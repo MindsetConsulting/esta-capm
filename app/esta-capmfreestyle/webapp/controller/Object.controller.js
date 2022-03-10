@@ -174,6 +174,7 @@ sap.ui.define([
 
         onDelete : function () {
             console.log('Deleting employee!');
+            
         }
     });
 });
