@@ -14,7 +14,7 @@
          <Button
             text="Delete"
             type="Critical"
-            press=".onDelete"/>
+            press=".onCloseDeleteDialog"/>
       </beginButton>
       <endButton>
       <Button

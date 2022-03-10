@@ -172,9 +172,15 @@ sap.ui.define([
 			oModel.setProperty("/busy", bIsBusy);
 		},
 
-        onDelete : function () {
-            console.log('Deleting employee!');
-            
-        }
+        onOpenDeleteDialog: function () {
+			if (!this.deleteDialog) {
+				this.deleteDialog = this.getView().byId("deleteDialog")
+			} 
+			this.deleteDialog.open();
+		},
+
+        onCloseDeleteDialog : function () {
+			this.byId("deleteDialog").close();
+		}
     });
 });

@@ -3,6 +3,7 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
     xmlns:layout="sap.ui.layout"
     xmlns:semantic="sap.f.semantic">
 
@@ -177,7 +178,7 @@
 		</semantic:titleMainAction>
 
 		<semantic:deleteAction>
-			<semantic:DeleteAction press="onDelete"/>
+			<semantic:DeleteAction press="onOpenDeleteDialog"/>
 		</semantic:deleteAction>
 
         <semantic:footerMainAction>
@@ -187,6 +188,10 @@
 		<semantic:footerCustomActions>
 			<Button id="cancelAction" text="Cancel" press="onResetChanges"/>
 		</semantic:footerCustomActions>
+
+        <semantic:dependents>
+			<core:Fragment fragmentName="freestylecapm.estacapmfreestyle.view.DeleteDialog" type="XML" />
+		</semantic:dependents>
 
     </semantic:SemanticPage>
 
