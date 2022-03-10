@@ -45,9 +45,14 @@ sap.ui.define([
             this._showObject(oEvent.getSource());
         },
 
+        _showObject : function (oItem) {
+            this.getRouter().navTo("object", {
+                objectId: oItem.getBindingContext().getPath().substring("/Employees".length)
+            });
+        },
+
         onAddEmployee: function(oEvent) {
-			console.log('Adding new employee!');
-            var oList = this.byId("table")
+            var oList = this.byId("employeeTable")
 			var	oBinding = oList.getBinding("items")
             var oRouter = this.getRouter();
 			var	oContext = oBinding.create({});
@@ -114,25 +119,16 @@ sap.ui.define([
 			var sOrder = aStates[iOrder];
 
 			oView.getModel("appView").setProperty("/order", iOrder);
-			oView.byId("Employees").getBinding("items").sort(sOrder && new Sorter("fullName", sOrder === "desc"));
-
-			sMessage = this._getText("sortMessage", [this._getText(aStateTextIds[iOrder])]);
-			MessageToast.show(sMessage);
+			oView.byId("employeeTable").getBinding("items").sort(sOrder && new Sorter("fullName", sOrder === "desc"));
 		},
 
         onRefresh : function () {
-            var oTable = this.byId("table");
+            var oTable = this.byId("employeeTable");
             oTable.getBinding("items").refresh();
         },
 
-        _showObject : function (oItem) {
-            this.getRouter().navTo("object", {
-                objectId: oItem.getBindingContext().getPath().substring("/Employees".length)
-            });
-        },
-
         _applySearch: function(aTableSearchState) {
-            var oTable = this.byId("table"),
+            var oTable = this.byId("employeeTable"),
                 oViewModel = this.getModel("worklistView");
             oTable.getBinding("items").filter(aTableSearchState, "Application");
             // changes the noDataText of the list in case there are no filter results

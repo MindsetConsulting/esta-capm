@@ -36,7 +36,7 @@ sap.ui.define([
 			this._bTechnicalErrors = false;
         },
 
-        onNavBack : function() {
+        onNavBack : function () {
             var sPreviousHash = History.getInstance().getPreviousHash();
             if (sPreviousHash !== undefined) {
                 // eslint-disable-next-line sap-no-history-manipulation
@@ -94,7 +94,7 @@ sap.ui.define([
                     oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
         },
 
-        handleEditPress : function() {
+        onEditEmployee : function () {
             var oViewModel = this.getModel("objectView")
             oViewModel.setProperty("/editMode", true);
             this.byId("bigName").setProperty("visible", false);
@@ -104,7 +104,7 @@ sap.ui.define([
             this.showFooter(true);
         },
 
-        onSave : function() {
+        onSave : function () {
             this.showFooter(false);
             this.oEditAction.setVisible(true);
 			var fnSuccess = function () {
@@ -132,7 +132,7 @@ sap.ui.define([
             MessageBox.alert("Successfully saved!");
         },
 
-        onResetChanges : function() {
+        onResetChanges : function () {
             var oViewModel = this.getModel("objectView")
             oViewModel.setProperty("/editMode", false);
             this.byId("bigName").setProperty("visible", true);
@@ -144,7 +144,7 @@ sap.ui.define([
             this.getView().getModel().resetChanges("employeeInfo");
         },
 
-        showFooter: function(bShow) {
+        showFooter : function (bShow) {
 			this.oSemanticPage.setShowFooter(bShow);
 		},
 
@@ -172,15 +172,92 @@ sap.ui.define([
 			oModel.setProperty("/busy", bIsBusy);
 		},
 
-        onOpenDeleteDialog: function () {
+        onOpenDeleteDialog : function () {
 			if (!this.deleteDialog) {
 				this.deleteDialog = this.getView().byId("deleteDialog")
 			} 
 			this.deleteDialog.open();
 		},
 
+        onDelete : function () {
+            console.log("deleting employee!!!");
+            var employeeTable = this.getView("worklistView").byId("employeeTable"),
+                employeeContext = employeeTable.getSelectedItem().getBindingContext();
+            
+            employeeContext.delete("$auto").then(function () {
+                employeeTable.removeSelections();
+                this.byId("deleteDialog").close();
+                MessageBox.alert("Employee has been deleted");
+            })
+        },
+
         onCloseDeleteDialog : function () {
 			this.byId("deleteDialog").close();
-		}
+		},
+
+        onCreateSkill : function () {
+            var oList = this.byId("skillTable"),
+				oBinding = oList.getBinding("items"),
+				oContext = oBinding.create({
+					"skillTitle" : "",
+					"institution" : "",
+					"skillType" : "",
+					"dateAcquired" : "",
+                    "renewal" : "",
+                    "comfortLevel" : ""
+				});
+
+			this._setUIChanges();
+			this.getView().getModel("appView").setProperty("/usernameEmpty", true);
+
+			oList.getItems().some(function (oItem) {
+				if (oItem.getBindingContext() === oContext) {
+					oItem.focus();
+					oItem.setSelected(true);
+					return true;
+				}
+			});
+        },
+
+        onDeleteSkill : function () {
+            var oSelected = this.byId("skillTable").getSelectedItem();
+
+			if (oSelected) {
+				oSelected.getBindingContext().delete("$auto").then(function () {
+					MessageToast.show(this._getText("deletionSuccessMessage"));
+				}.bind(this), function (oError) {
+					MessageBox.error(oError.message);
+				});
+			}
+        },
+
+        //SEARCH NOT WORKING ON SKILL TABLE
+        onSearch : function (oEvent) {
+            if (oEvent.getParameters().refreshButtonPressed) {
+                // Search field's 'refresh' button has been pressed.
+                // This is visible if you select any main list item.
+                // In this case no new search is triggered, we only
+                // refresh the list binding.
+                this.onRefresh();
+            } else {
+                var aTableSearchState = [];
+                var sQuery = oEvent.getParameter("query");
+
+                if (sQuery && sQuery.length > 0) {
+                    aTableSearchState = [new Filter("skillTitle", FilterOperator.Contains, sQuery)];
+                }
+                this._applySearch(aTableSearchState);
+            }
+        },
+
+        _applySearch: function(aTableSearchState) {
+            var oTable = this.byId("skillTable"),
+                oViewModel = this.getModel("objectView");
+            oTable.getBinding("items").filter(aTableSearchState, "Application");
+            // changes the noDataText of the list in case there are no filter results
+            if (aTableSearchState.length !== 0) {
+                oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
+            }
+        }
     });
 });

@@ -105,6 +105,7 @@
                         descending: false
                     }
                 }"
+                mode="SingleSelectLeft"
                 growing="true"
                 growingScrollToLoad="true">
 
@@ -116,8 +117,13 @@
                             level="H3"/>
                         <ToolbarSpacer />
                         <Button
-                            text="Add Skill"
-                            type="Emphasized"/>
+                            icon="sap-icon://add"
+                            type="Transparent"
+                            press="onCreateSkill"/>
+                        <Button
+                            icon="sap-icon://delete"
+                            type="Transparent"
+                            press="onDeleteSkill"/>
                         <SearchField
                             id="searchField"
                             tooltip="{i18n>worklistSearchTooltip}"
@@ -155,18 +161,36 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <ObjectIdentifier
-                                title="{skill/skillTitle}"/>
-                            <ObjectIdentifier
-                                text="{skill/institution}"/>
-                            <ObjectIdentifier
-                                text="{skill/skillType}"/>
-                            <ObjectIdentifier
-                                text="{dateAcquired}"/>
-                            <ObjectIdentifier
-                                text="{renewal}"/>
-                            <ObjectIdentifier
-                                text="{comfortLevel}"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{skill/skillTitle}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{skill/institution}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{skill/skillType}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{dateAcquired}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{renewal}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
+                            <Input
+                                editable="{objectView>/editMode}"
+                                value="{comfortLevel}"
+                                valueLiveUpdate="true"
+                                liveChange="onInputChange"/>
                         </cells>
                     </ColumnListItem>
                 </items>
@@ -174,7 +198,7 @@
         </semantic:content>
 
         <semantic:titleMainAction>
-			<semantic:TitleMainAction id="editAction" text="Edit" press="handleEditPress"/>
+			<semantic:TitleMainAction id="editAction" text="Edit" press="onEditEmployee"/>
 		</semantic:titleMainAction>
 
 		<semantic:deleteAction>
