@@ -185,10 +185,11 @@ sap.ui.define([
 		},
 
         onDelete : function (oEvent) {
-            console.log(oEvent);
+            var oRouter = this.getRouter();
             var employeeContext = this.getView("objectView").byId("page").getBindingContext();
             
-            employeeContext.delete("$auto").then(function () {
+            employeeContext.delete("$auto").then(function (oEvent) {
+                oRouter.navTo("worklist", {});
                 this.byId("deleteDialog").close();
             })
 
