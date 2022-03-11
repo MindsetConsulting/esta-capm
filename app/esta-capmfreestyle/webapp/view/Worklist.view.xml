@@ -42,6 +42,10 @@
                             level="H3"/>
                         <ToolbarSpacer />
                         <Button
+                            id="refreshUsersButton"
+                            icon="sap-icon://refresh"
+                            press="onRefresh"/>
+                        <Button
                             id="sortUsersButton"
                             icon="sap-icon://sort"
                             press="onSort"/>

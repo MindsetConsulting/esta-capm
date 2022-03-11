@@ -79,7 +79,7 @@
                         valueLiveUpdate="true"
                         liveChange="onInputChange"/>
                     <Label text="Start Date" design="Bold"/>
-                    <Input
+                    <DatePicker
                         editable="{objectView>/editMode}"
                         value="{startDate}"
                         valueLiveUpdate="true"
@@ -105,7 +105,7 @@
                         descending: false
                     }
                 }"
-                mode="SingleSelectLeft"
+                mode="MultiSelect"
                 growing="true"
                 growingScrollToLoad="true">
 
@@ -161,22 +161,24 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Input
+                            <Select
+                                selectedKey="{
+                                    path: 'skill/ID',
+                                    mode: 'sap.ui.model.BindingMode.OneWay'
+                                    }"
+                                items="{
+                                    path: '/Skills',
+                                    sorter: { path: 'skillTitle' }
+                                }"
                                 editable="{objectView>/editMode}"
-                                value="{skill/skillTitle}"
-                                valueLiveUpdate="true"
-                                liveChange="onInputChange"/>
-                            <Input
-                                editable="{objectView>/editMode}"
-                                value="{skill/institution}"
-                                valueLiveUpdate="true"
-                                liveChange="onInputChange"/>
-                            <Input
-                                editable="{objectView>/editMode}"
-                                value="{skill/skillType}"
-                                valueLiveUpdate="true"
-                                liveChange="onInputChange"/>
-                            <Input
+                                change="onSelectChange">
+                                <core:Item key="{ID}" text="{skillTitle}" />
+                            </Select>
+                            <Text
+                                text="{skill/institution}"/>
+                            <Text
+                                text="{skill/skillType}"/>
+                            <DatePicker
                                 editable="{objectView>/editMode}"
                                 value="{dateAcquired}"
                                 valueLiveUpdate="true"

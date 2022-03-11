@@ -108,6 +108,16 @@ sap.ui.define([
             }
         },
 
+        _applySearch: function(aTableSearchState) {
+            var oTable = this.byId("employeeTable"),
+                oViewModel = this.getModel("worklistView");
+            oTable.getBinding("items").filter(aTableSearchState, "Application");
+            // changes the noDataText of the list in case there are no filter results
+            if (aTableSearchState.length !== 0) {
+                oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
+            }
+        },
+
         onSort : function () {
 			var oView = this.getView(),
 				aStates = [undefined, "asc", "desc"],
@@ -120,21 +130,14 @@ sap.ui.define([
 
 			oView.getModel("appView").setProperty("/order", iOrder);
 			oView.byId("employeeTable").getBinding("items").sort(sOrder && new Sorter("fullName", sOrder === "desc"));
+
+            sMessage = this._getText("sortMessage", [this._getText(aStateTextIds[iOrder])]);
+			MessageToast.show(sMessage);
 		},
 
         onRefresh : function () {
             var oTable = this.byId("employeeTable");
             oTable.getBinding("items").refresh();
-        },
-
-        _applySearch: function(aTableSearchState) {
-            var oTable = this.byId("employeeTable"),
-                oViewModel = this.getModel("worklistView");
-            oTable.getBinding("items").filter(aTableSearchState, "Application");
-            // changes the noDataText of the list in case there are no filter results
-            if (aTableSearchState.length !== 0) {
-                oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
-            }
         }
     });
 });

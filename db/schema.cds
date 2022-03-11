@@ -25,7 +25,7 @@ using { managed } from '@sap/cds/common';
   entity Employee2Skill : managed {
       key ID   : UUID @(Core.Computed);
       skill    : Association to one Skills;
-      employee : Association to one Employees;
+      employee : Association to one Employees @assert.integrity: false;
       dateAcquired : Date;
       renewal      : Renewal;
       comfortLevel : ComfortLevel;

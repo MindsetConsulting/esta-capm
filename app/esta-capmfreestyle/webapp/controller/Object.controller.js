@@ -96,7 +96,8 @@ sap.ui.define([
 
         onEditEmployee : function () {
             var oViewModel = this.getModel("objectView")
-            oViewModel.setProperty("/editMode", true);
+                oViewModel.setProperty("/editMode", true);
+
             this.byId("bigName").setProperty("visible", false);
             this.byId("bigNameEdit").setProperty("visible", true);
             this.byId("information").setProperty("visible", false);
@@ -129,7 +130,7 @@ sap.ui.define([
             this.byId("information").setProperty("visible", true);
             this.byId("inputs").setProperty("visible", false);
 
-            MessageBox.alert("Successfully saved!");
+            MessageToast.show("Changes saved!");
         },
 
         onResetChanges : function () {
@@ -156,6 +157,10 @@ sap.ui.define([
 			}
 		},
 
+        onSelectChange : function (oEvent) {
+            console.log(oEvent.getParameter("selectedItem").getProperty("text"));
+        },
+
         _setUIChanges : function (bHasUIChanges) {
 			if (this._bTechnicalErrors) {
 				// If there is currently a technical error, then force 'true'.
@@ -179,29 +184,30 @@ sap.ui.define([
 			this.deleteDialog.open();
 		},
 
-        onDelete : function () {
-            console.log("deleting employee!!!");
-            var employeeTable = this.getView("worklistView").byId("employeeTable"),
-                employeeContext = employeeTable.getSelectedItem().getBindingContext();
+        onDelete : function (oEvent) {
+            console.log(oEvent);
+            var employeeContext = this.getView("objectView").byId("page").getBindingContext();
             
             employeeContext.delete("$auto").then(function () {
-                employeeTable.removeSelections();
                 this.byId("deleteDialog").close();
-                MessageBox.alert("Employee has been deleted");
             })
+
+            MessageToast.show("Employee deleted!");
         },
 
         onCloseDeleteDialog : function () {
 			this.byId("deleteDialog").close();
 		},
 
+        //register on change event
+        //maybe make new function to handle change for SELECT
         onCreateSkill : function () {
             var oList = this.byId("skillTable"),
 				oBinding = oList.getBinding("items"),
 				oContext = oBinding.create({
-					"skillTitle" : "",
-					"institution" : "",
-					"skillType" : "",
+                    "skill": {
+                        "ID": "3b6fbba2-d36d-4e7d-9a8e-425c4b0636d6"
+                    },
 					"dateAcquired" : "",
                     "renewal" : "",
                     "comfortLevel" : ""
@@ -224,7 +230,7 @@ sap.ui.define([
 
 			if (oSelected) {
 				oSelected.getBindingContext().delete("$auto").then(function () {
-					MessageToast.show(this._getText("deletionSuccessMessage"));
+					MessageToast.show("Skill deleted!");
 				}.bind(this), function (oError) {
 					MessageBox.error(oError.message);
 				});
